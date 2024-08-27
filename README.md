@@ -49,6 +49,28 @@ address addr = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
 address payable payableAddr = payable(addr);  // تحويل صريح
 }
 ```
+## In Solidity, explicit conversions are allowed between the address type and several other types, including uint160, integer literals, bytes20, and contract types. This flexibility allows developers to convert between these types when needed, but it must be done explicitly due to the potential for unsafe operations or data loss
+1. Conversion between address and uint160:
+An Ethereum address is a 160-bit (20-byte) value, which can be represented by the uint160 type.
+Conversion between address and uint160 is allowed, but must be done explicitly to avoid unintended results.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.25;
+contract addressTest{
+    
+address addr = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
+uint160 num = uint160(addr);  // Explicit conversion to uint160
+address addrFromUint = address(num);  // Explicit conversion back to address
+
+}
+```
+2. Conversion from Integer Literals to address:
+Integer literals can be explicitly converted to an address type. This can be useful in tests or if you know the numeric representation of an address.
+However, this should be used with caution since incorrect conversion can result in invalid or unintended addresses.
+
+
+
 
 
 
