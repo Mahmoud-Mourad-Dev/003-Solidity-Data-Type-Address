@@ -69,7 +69,36 @@ address addrFromUint = address(num);  // Explicit conversion back to address
 Integer literals can be explicitly converted to an address type. This can be useful in tests or if you know the numeric representation of an address.
 However, this should be used with caution since incorrect conversion can result in invalid or unintended addresses.
 
+## I try to convert from integers 256 to address i get error
 
+```solidity
+pragma solidity ^0.8.0;
+contract IntegerToAddressConversion {
+    function convertToAddress(uint256 num) public pure returns (address) {
+        address addr = address(num);
+        return addr;
+    }
+}
+/* ERORR
+TypeError: Explicit type conversion not allowed from "uint256" to "address".
+ --> address.sol:6:24:
+  |
+6 |         address addr = address(num);
+  |                        ^^^^^^^^^^^^
+*/
+```
+
+in Solidity, direct type conversion from uint256 to address is not allowed due to security reasons. To convert a uint256 value to an address, you need to use a different approach that involves bitwise operations or the address(uint256) typecast.Here's an updated example using bitwise operations to convert a uint256 to an address in Solidity:
+
+```solidity
+pragma solidity ^0.8.0;
+contract IntegerToAddressConversion {
+    function convertToAddress(uint256 num) public pure returns (address) {
+        address addr = address(uint160(num));
+        return addr;
+    }
+}
+```
 
 
 
