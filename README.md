@@ -1,7 +1,7 @@
 # Solidity-Data-Type-Address
-## Address Holds a 20-byte Ethereum address, 0xe688b84b23f322a994A53dbF8E15FA82CDB71127
+##  1-Address Holds a 20-byte Ethereum address,
 it might be a smart contract that was not built to accept Ether.
-## Address payable Cand send and recieve eth (transfer,send)
+##  2-Address payable Can send and recieve eth (transfer,send)
 ```solidity
 
 // SPDX-License-Identifier: MIT
@@ -99,6 +99,55 @@ contract IntegerToAddressConversion {
     }
 }
 ```
+In Solidity, explicit conversion between the address type and the bytes20 type is allowed. Since both types are 20 bytes in size (160 bits), you can convert an address to bytes20 and vice versa using explicit type casting
+```solidity
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+pragma solidity ^0.8.0;
+
+contract AddressToBytes20 {
+    function convertAddressToBytes20(address addr) public pure returns (bytes20) {
+        // Explicit conversion from address to bytes20
+        return bytes20(addr);
+    }
+}
+
+```
+```solidity
+pragma solidity ^0.8.0;
+
+contract Bytes20ToAddress {
+    function convertBytes20ToAddress(bytes20 b) public pure returns (address) {
+        // Explicit conversion from bytes20 to address
+        return address(b);
+    }
+}
+```
+In Solidity, the address payable type represents an Ethereum address that can receive Ether, as opposed to a regular address which cannot send or receive Ether directly. The conversion between address or contract types to address payable must be done explicitly using the payable(...) conversion, but there are specific rules governing when this conversion is allowed.
+Conversion from Contract Type to address payable:
+A contract can be converted to address payable only if it can receive Ether. This means the contract must have a receive() function or a payable fallback function.
+If the contract does not have one of these functions, the conversion to address payable will not be allowed.
+
+```solidity
+
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract PayableContract {
+    receive() external payable {}  // This contract can receive Ether
+}
+
+contract Example {
+    function convertContractToAddressPayable(PayableContract myContract) public pure returns (address payable) {
+        return payable(myContract);  // Valid because the contract has a receive() function
+    }
+}
+// payable(0) is valid and is an exception to this rule.
+
+```
+
+
 
 
 
