@@ -140,6 +140,23 @@ contract Example {
 
 ```
 
+f you convert a type that uses a larger byte size to an address, for example bytes32, then the address is truncated. To reduce conversion ambiguity, starting with version 0.4.24, the compiler will force you to make the truncation explicit in the conversion. Take for example the 32-byte value 0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC.
+By forcing explicit conversions, Solidity ensures that developers are fully aware of the truncation that occurs when converting larger byte-sized values to an address.
+```solidity
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract bytes32Tobytes20 {
+    bytes32 public b = 0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC;
+    address public addr1 = address(uint160(uint256((b))));
+    address public addr2 = address(uint160(uint256((b))));
+// address(uint160(bytes20(b))): Uses the first 20 bytes of the bytes32 value.
+// address(uint160(uint256(b))): Uses the last 20 bytes of the bytes32 value.
+}
+```
+
+
+
 
 
 
