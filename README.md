@@ -154,6 +154,51 @@ contract bytes32Tobytes20 {
 // address(uint160(uint256(b))): Uses the last 20 bytes of the bytes32 value.
 }
 ```
+Address Members
+ -Balance
+ Returns the balance (in wei) of the address.
+
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract addressMembers {
+    address addr = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+    uint256 public balance = addr.balance;
+    
+}
+```
+-Code
+Returns the code at the address as bytes. If the address is a contract, this will return the contract's code. If the address is an externally owned account (EOA), it will return an empty byte array
+```solidity
+
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract addressMembers {
+    address addr = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+    bytes public addressCode = addr.code;
+    
+}
+```
+-Code hash
+Returns the hash of the code at the address. It returns 0x0 if the address is an externally owned account or does not contain code (like a destroyed contract).
+```solidity
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract addressMembers {
+    address addr = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+    //Balance Returns the balance (in wei) of the address.
+    bytes32 public codehash = addr.codehash;
+    
+}
+```
+
+
+
+
+
+
 
 
 
