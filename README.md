@@ -193,6 +193,48 @@ contract addressMembers {
     
 }
 ```
+-Transfer
+Transfer is a key member of the address payable type, which allows an Ethereum address to send Ether.
+The transfer function is a built-in function of address payable. It is used to transfer Ether from a contract (or account) to another address.
+```solidity
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract receiveEther {
+    receive() external payable { }
+    function getBalance() public view returns(uint256){
+        return address(this).balance;
+    }
+ }
+
+ contract transferEth{
+    function transferEther(address payable _to) public payable{
+        _to.transfer(msg.value);
+    }
+ }
+```
+-Send
+The send function is another way to transfer Ether, but it behaves differently from transfer. It does not automatically revert on failure, 
+It returns a boolean (true or false) depending on whether the transfer was successful or not.
+```solidity
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract receiveEther {
+    receive() external payable { }
+    function getBalance() public view returns(uint256){
+        return address(this).balance;
+
+    }
+ }
+ contract sendEth{
+    function sendEther(address payable _to) public payable{
+        bool sent= _to.send(msg.value);
+        require(sent ,"fail");
+    }
+     }
+```
+
+
 
 
 
