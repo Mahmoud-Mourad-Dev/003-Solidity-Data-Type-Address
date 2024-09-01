@@ -155,7 +155,8 @@ contract bytes32Tobytes20 {
 }
 ```
 Address Members
- -Balance
+ ### -Balance
+ 
  Returns the balance (in wei) of the address.
 
 ```solidity
@@ -167,7 +168,8 @@ contract addressMembers {
     
 }
 ```
--Code
+### -Code
+
 Returns the code at the address as bytes. If the address is a contract, this will return the contract's code. If the address is an externally owned account (EOA), it will return an empty byte array
 ```solidity
 
@@ -180,7 +182,8 @@ contract addressMembers {
     
 }
 ```
--Code hash
+### -Code hash
+
 Returns the hash of the code at the address. It returns 0x0 if the address is an externally owned account or does not contain code (like a destroyed contract).
 ```solidity
 
@@ -193,7 +196,8 @@ contract addressMembers {
     
 }
 ```
--Transfer
+### -Transfer
+
 Transfer is a key member of the address payable type, which allows an Ethereum address to send Ether.
 The transfer function is a built-in function of address payable. It is used to transfer Ether from a contract (or account) to another address.
 ```solidity
@@ -212,9 +216,11 @@ contract receiveEther {
     }
  }
 ```
--Send
+### -Send
+
 The send function is another way to transfer Ether, but it behaves differently from transfer. It does not automatically revert on failure, 
 It returns a boolean (true or false) depending on whether the transfer was successful or not.
+send is the low-level counterpart of transfer. If the execution fails, the current contract will not stop with an exception, but send will return false.
 ```solidity
 
 // SPDX-License-Identifier:MIT
@@ -232,6 +238,26 @@ contract receiveEther {
         require(sent ,"fail");
     }
      }
+```
+### -call
+```solidity
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract receiveEther {
+    receive() external payable { }
+    function getBalance() public view returns(uint256){
+        return address(this).balance;
+
+    }
+ }
+ contract sendEth{
+    function callEther(address payable _to) public payable{
+       ( bool sent ,)= _to.call{value: msg.value}("");
+        require(sent ,"fail");
+    }
+    
+ }
 ```
 
 
